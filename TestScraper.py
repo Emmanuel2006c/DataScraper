@@ -23,3 +23,8 @@ for h3 in html_file.find_all('h3'):
         print(country + ': ' + capital)
         j = j + 1
         break
+
+url_2 = 'https://de.tradingview.com/symbols/SOLUSD/'
+page_2 = requests.get(url_2)
+page_status_2 = page_2.status_code
+print(page_status_2)
