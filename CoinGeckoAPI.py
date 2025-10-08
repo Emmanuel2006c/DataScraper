@@ -2,6 +2,10 @@ import requests
 import time
 from collections import deque
 
+balance = 0
+buyPrice = 0
+sellPrice = 0
+
 prices = deque(maxlen=20)
 
 def getSolanaPrice():
@@ -32,17 +36,24 @@ while True:
 
     print(' ')
     print(str(getSolanaPrice()) + ' $')
-    print('MAShort: ' + str(shortMA) + ' $')
-    print('MALong: ' + str(longMA) + ' $')
+    if shortMA != None and longMA != None:
+        print('MAShort: ' + str(round(shortMA, 2)) + ' $')
+        print('MALong: ' + str(round(longMA, 2)) + ' $')
+        print('Balance: ' + str(round(balance, 2)))
+    else:
+        print('Waiting for MAs to be calculated...')
 
     if shortMA and longMA:
         if shortMA > longMA and lastSignal != "buy":
             print(' ')
             print('BUY')
+            buyPrice = getSolanaPrice()
             lastSignal = 'buy'
         elif shortMA < longMA and lastSignal != "sell":
             print(' ')
             print('SELL')
+            sellPrice = getSolanaPrice()
+            balance = balance + (sellPrice - buyPrice)
             lastSignal = 'sell'
     time.sleep(5)
 
