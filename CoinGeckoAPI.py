@@ -55,6 +55,6 @@ while True:
             sellPrice = getSolanaPrice()
             balance = balance + (sellPrice - buyPrice)
             lastSignal = 'sell'
-    time.sleep(5)
+    time.sleep(3)
 
     
